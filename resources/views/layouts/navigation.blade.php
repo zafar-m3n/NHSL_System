@@ -35,7 +35,7 @@
                             <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
                                 {{ __('Users') }}
                             </x-nav-link>
-                            <x-nav-link href="#">
+                            <x-nav-link :href="route('admin.schedules.index')" :active="request()->routeIs('admin.schedules.index')">
                                 {{ __('Schedules') }}
                             </x-nav-link>
                             <x-nav-link href="#">
@@ -154,7 +154,7 @@
                     <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
                         {{ __('Users') }}
                     </x-responsive-nav-link>
-                    <x-responsive-nav-link href="#">
+                    <x-responsive-nav-link :href="route('admin.schedules.index')" :active="request()->routeIs('admin.schedules.index')">
                         {{ __('Schedules') }}
                     </x-responsive-nav-link>
                     <x-responsive-nav-link href="#">
