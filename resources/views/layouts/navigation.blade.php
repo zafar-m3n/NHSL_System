@@ -38,8 +38,11 @@
                             <x-nav-link :href="route('admin.schedules.index')" :active="request()->routeIs('admin.schedules.index')">
                                 {{ __('Schedules') }}
                             </x-nav-link>
+                            <x-nav-link :href="route('admin.medicines.index')" :active="request()->routeIs('admin.medicines.index')">
+                                {{ __('Medicines') }}
+                            </x-nav-link>
                             <x-nav-link href="#">
-                                {{ __('Resources') }}
+                                {{ __('Equipment') }}
                             </x-nav-link>
                         @endif
                     @else
@@ -157,8 +160,11 @@
                     <x-responsive-nav-link :href="route('admin.schedules.index')" :active="request()->routeIs('admin.schedules.index')">
                         {{ __('Schedules') }}
                     </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('admin.medicines.index')" :active="request()->routeIs('admin.medicines.index')">
+                        {{ __('Medicines') }}
+                    </x-responsive-nav-link>
                     <x-responsive-nav-link href="#">
-                        {{ __('Resources') }}
+                        {{ __('Equipment') }}
                     </x-responsive-nav-link>
                 @endif
             @else

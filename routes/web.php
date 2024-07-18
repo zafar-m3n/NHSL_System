@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ScheduleController;
+use App\Http\Controllers\Admin\MedicineController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -47,6 +48,12 @@ Route::middleware(['auth', 'role'])->prefix('admin')->name('admin.')->group(func
 
     //Schedule management routes
     Route::resource('schedules', ScheduleController::class)->except(['show']);
+
+    //Medicine management routes
+    Route::resource('medicines', MedicineController::class)->except(['show']);
+
+    //Equipment management routes
+    Route::resource('equipments', EquipmentController::class)->except(['show']);
 });
 
 require __DIR__.'/auth.php';
