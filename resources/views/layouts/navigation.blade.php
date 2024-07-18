@@ -53,7 +53,7 @@
                         <x-nav-link :href="route('services')" :active="request()->routeIs('services')">
                             {{ __('Services') }}
                         </x-nav-link>
-                        <x-nav-link href="#">
+                        <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
                             {{ __('Contact') }}
                         </x-nav-link>
                     @endif
@@ -172,7 +172,7 @@
                 <x-responsive-nav-link :href="route('services')" :active="request()->routeIs('services')">
                     {{ __('Services') }}
                 </x-responsive-nav-link>
-                <x-responsive-nav-link href="#">
+                <x-responsive-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
                     {{ __('Contact') }}
                 </x-responsive-nav-link>
             @endif
