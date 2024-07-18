@@ -15,7 +15,7 @@
                     @if (Auth::check())
                         @if (Auth::user()->usertype == 'staff')
                             <!-- Staff Links -->
-                            <x-nav-link href="{{ route('dashboard') }}">
+                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                                 {{ __('Dashboard') }}
                             </x-nav-link>
                             <x-nav-link href="#">
@@ -29,7 +29,7 @@
                             </x-nav-link>
                         @elseif (Auth::user()->usertype == 'admin')
                             <!-- Admin Links -->
-                            <x-nav-link href="{{ route('admin.dashboard') }}">
+                            <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                                 {{ __('Dashboard') }}
                             </x-nav-link>
                             <x-nav-link href="#">
@@ -44,7 +44,7 @@
                         @endif
                     @else
                         <!-- Guest Links -->
-                        <x-nav-link href="#">
+                        <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                             {{ __('Home') }}
                         </x-nav-link>
                         <x-nav-link href="#">
@@ -60,15 +60,15 @@
                 </div>
             </div>
 
-            <!-- Settings Dropdown -->
-            @if (Auth::check())
-                <div class="hidden sm:ms-6 sm:flex sm:items-center">
+            <!-- Settings Dropdown and Authentication Links -->
+            <div class="hidden sm:ms-6 sm:flex sm:items-center">
+                @if (Auth::check())
+                    <!-- User Settings Dropdown -->
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button
                                 class="inline-flex items-center rounded-md border border-transparent bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out hover:text-gray-700 focus:outline-none dark:bg-gray-800 dark:text-gray-400 dark:hover:text-gray-300">
                                 <div>{{ Auth::user()->name }}</div>
-
                                 <div class="ms-1">
                                     <svg class="h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 20 20">
@@ -88,17 +88,29 @@
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-
                                 <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
-                                                    this.closest('form').submit();">
+                                                             this.closest('form').submit();">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>
                         </x-slot>
                     </x-dropdown>
-                </div>
-            @endif
+                @else
+                    <!-- Login and Register Links -->
+                    @if (Route::has('login'))
+                        <x-nav-link href="{{ route('login') }}">
+                            {{ __('Log in') }}
+                        </x-nav-link>
+
+                        @if (Route::has('register'))
+                            <x-nav-link href="{{ route('register') }}">
+                                {{ __('Register') }}
+                            </x-nav-link>
+                        @endif
+                    @endif
+                @endif
+            </div>
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
@@ -119,14 +131,10 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
         <div class="space-y-1 pb-3 pt-2">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
-
             @if (Auth::check())
                 @if (Auth::user()->usertype == 'staff')
                     <!-- Staff Links -->
-                    <x-responsive-nav-link href="{{ route('dashboard') }}">
+                    <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-responsive-nav-link>
                     <x-responsive-nav-link href="#">
@@ -140,7 +148,7 @@
                     </x-responsive-nav-link>
                 @elseif (Auth::user()->usertype == 'admin')
                     <!-- Admin Links -->
-                    <x-responsive-nav-link href="{{ route('admin.dashboard') }}">
+                    <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')">
                         {{ __('Dashboard') }}
                     </x-responsive-nav-link>
                     <x-responsive-nav-link href="#">
@@ -155,7 +163,7 @@
                 @endif
             @else
                 <!-- Guest Links -->
-                <x-responsive-nav-link href="#">
+                <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                     {{ __('Home') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link href="#">
@@ -170,10 +178,33 @@
             @endif
         </div>
 
-        <!-- Responsive Settings Options -->
-        <div class="border-t border-gray-200 pb-1 pt-4 dark:border-gray-600">
-            <div class="px-4">
-                @if (Auth::check())
+        <!-- Responsive Authentication Links -->
+        @if (Route::has('login'))
+            <div class="border-t border-gray-200 pb-1 pt-4 dark:border-gray-600">
+                <div class="px-4">
+                    @auth
+                        <x-responsive-nav-link href="{{ url('/dashboard') }}">
+                            {{ __('Dashboard') }}
+                        </x-responsive-nav-link>
+                    @else
+                        <x-responsive-nav-link href="{{ route('login') }}">
+                            {{ __('Log in') }}
+                        </x-responsive-nav-link>
+
+                        @if (Route::has('register'))
+                            <x-responsive-nav-link href="{{ route('register') }}">
+                                {{ __('Register') }}
+                            </x-responsive-nav-link>
+                        @endif
+                    @endauth
+                </div>
+            </div>
+        @endif
+
+        @if (Auth::check())
+            <!-- Responsive Settings Options -->
+            <div class="border-t border-gray-200 pb-1 pt-4 dark:border-gray-600">
+                <div class="px-4">
                     <div class="text-base font-medium text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
                     <div class="text-sm font-medium text-gray-500">{{ Auth::user()->email }}</div>
 
@@ -193,8 +224,8 @@
                             </x-responsive-nav-link>
                         </form>
                     </div>
-                @endif
+                </div>
             </div>
-        </div>
+        @endif
     </div>
 </nav>
