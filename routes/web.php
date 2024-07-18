@@ -10,6 +10,9 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('aboutus');
 })->name('about');
+Route::get('/services', function () {
+    return view('services');
+})->name('services');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
