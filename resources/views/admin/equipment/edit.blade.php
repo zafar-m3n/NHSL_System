@@ -80,4 +80,3 @@
 
 <!-- Include the necessary Font Awesome, Tailwind CSS, and Alpine.js -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
