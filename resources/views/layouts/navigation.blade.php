@@ -18,7 +18,7 @@
                             <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                                 {{ __('Dashboard') }}
                             </x-nav-link>
-                            <x-nav-link href="#">
+                            <x-nav-link :href="route('staff.patients.index')" :active="request()->routeIs('staff.patients.index')">
                                 {{ __('Patients') }}
                             </x-nav-link>
                             <x-nav-link :href="route('staff.schedules.index')" :active="request()->routeIs('staff.schedules.index')">
@@ -140,7 +140,7 @@
                     <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-responsive-nav-link>
-                    <x-responsive-nav-link href="#">
+                    <x-responsive-nav-link :href="route('staff.patients.index')" :active="request()->routeIs('staff.patients.index')">
                         {{ __('Patients') }}
                     </x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('staff.schedules.index')" :active="request()->routeIs('staff.schedules.index')">
