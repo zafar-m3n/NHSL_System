@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\MedicineController;
 use App\Http\Controllers\Admin\EquipmentController;
+use App\Http\Controllers\Staff\ScheduleController as StaffScheduleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -27,7 +28,7 @@ Route::get('/contact', function () {
 // Authenticated routes
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('staff.dashboard');
     })->name('dashboard');
 
     // Profile routes
@@ -39,22 +40,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 // Admin routes
-Route::middleware(['auth', 'role'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('dashboard');
 
-    // User management routes
     Route::resource('users', UserController::class)->except(['show']);
-
-    //Schedule management routes
     Route::resource('schedules', ScheduleController::class)->except(['show']);
-
-    //Medicine management routes
     Route::resource('medicines', MedicineController::class)->except(['show']);
-
-    //Equipment management routes
     Route::resource('equipment', EquipmentController::class)->except(['show']);
 });
+
+Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->group(function () {
+    Route::resource('schedules', StaffScheduleController::class)->only(['index', 'show']);
+});
+
 
 require __DIR__.'/auth.php';
