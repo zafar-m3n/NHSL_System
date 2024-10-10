@@ -5,7 +5,8 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex shrink-0 items-center">
-                    <a href="{{ route('dashboard') }}">
+                    <a
+                        href="@if (Auth::check() && Auth::user()->usertype == 'staff') {{ route('staff.dashboard') }} @elseif(Auth::check() && Auth::user()->usertype == 'admin') {{ route('admin.dashboard') }} @else {{ route('home') }} @endif">
                         <img src="{{ asset('images/logo.png') }}" alt="Logo" class="block h-9 w-auto">
                     </a>
                 </div>
@@ -15,7 +16,7 @@
                     @if (Auth::check())
                         @if (Auth::user()->usertype == 'staff')
                             <!-- Staff Links -->
-                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            <x-nav-link :href="route('staff.dashboard')" :active="request()->routeIs('staff.dashboard')">
                                 {{ __('Dashboard') }}
                             </x-nav-link>
                             <x-nav-link :href="route('staff.patients.index')" :active="request()->routeIs('staff.patients.index')">
@@ -137,7 +138,7 @@
             @if (Auth::check())
                 @if (Auth::user()->usertype == 'staff')
                     <!-- Staff Links -->
-                    <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-responsive-nav-link :href="route('staff.dashboard')" :active="request()->routeIs('staff.dashboard')">
                         {{ __('Dashboard') }}
                     </x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('staff.patients.index')" :active="request()->routeIs('staff.patients.index')">
