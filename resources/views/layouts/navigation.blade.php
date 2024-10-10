@@ -24,7 +24,7 @@
                             <x-nav-link :href="route('staff.schedules.index')" :active="request()->routeIs('staff.schedules.index')">
                                 {{ __('Schedules') }}
                             </x-nav-link>
-                            <x-nav-link href="#">
+                            <x-nav-link :href="route('staff.resources.index')" :active="request()->routeIs('staff.resources.index')">
                                 {{ __('Resources') }}
                             </x-nav-link>
                         @elseif (Auth::user()->usertype == 'admin')
@@ -146,7 +146,7 @@
                     <x-responsive-nav-link :href="route('staff.schedules.index')" :active="request()->routeIs('staff.schedules.index')">
                         {{ __('Schedules') }}
                     </x-responsive-nav-link>
-                    <x-responsive-nav-link href="#">
+                    <x-responsive-nav-link :href="route('staff.resources.index')" :active="request()->routeIs('staff.resources.index')">
                         {{ __('Resources') }}
                     </x-responsive-nav-link>
                 @elseif (Auth::user()->usertype == 'admin')

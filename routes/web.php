@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\MedicineController;
 use App\Http\Controllers\Admin\EquipmentController;
 use App\Http\Controllers\Staff\ScheduleController as StaffScheduleController;
+use App\Http\Controllers\Staff\ResourceController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -53,6 +54,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
 Route::middleware(['auth', 'role:staff'])->prefix('staff')->name('staff.')->group(function () {
     Route::resource('schedules', StaffScheduleController::class)->only(['index', 'show']);
+    Route::resource('resources', ResourceController::class)->only(['index']);
 });
 
 
